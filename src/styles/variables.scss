@@ -1,0 +1,23 @@
+$container-width: 1170px;
+
+
+/* COLORS */
+$black: #000;
+$white: #fff;
+
+$main: #212121;
+$main-light: #757575;
+
+$primary: #03B2A8;
+$primary-light: #B2DFDB;
+
+$secondary-dark: #EBA500;
+$secondary: #FEB811;
+
+$error: #FE202F;
+
+/* MEDIA QUERIES */
+$tablet: unquote("max-width: 1200px");
+$mobile: unquote("max-width: 767px");
+
+$onlydesk: unquote("min-width: 1280px");

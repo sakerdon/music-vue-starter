@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="site-wrapper">
+    <header class="header">
+      <div class="container">
+        <button
+          class="header__menu-toggler hamburger hamburger--spring"
+          type="button"
+        >
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+
+        <div class="header__menu-shadow"></div>
+        header
+      </div>
+    </header>
+
+    <div class="site-content">
+      <div class="container site-row">
+        <sidebar />
+
+        <main class="main">
+          <router-view />
+        </main>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <audio-player />
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AudioPlayer from './components/AudioPlayer.vue';
+import Sidebar from './components/Sidebar.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    AudioPlayer,
+    Sidebar,
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

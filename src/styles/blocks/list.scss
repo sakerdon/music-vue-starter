@@ -1,0 +1,39 @@
+.list {
+    &__item{
+        display: flex;
+        height: 6rem;
+        align-items: center;
+    } 
+    &__play{
+        width: 6rem;
+        height: 6rem;
+        
+    } 
+    &__text{
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 2rem;
+        
+    } 
+    &__title{
+        font-weight: bold;
+    } 
+    &__artist{
+        font-weight: normal;
+    } 
+    &__buttons{
+        flex-shrink: 0;
+
+        button {
+            width: 6rem;
+            height: 6rem;
+        }
+    } 
+
+    &__like {
+        &.is-active {
+            background: red;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+.sidebar {
+    flex-basis: 27rem;
+    padding: 2rem 0;
+    box-shadow: 0 1px 10px rgba(#B2DFDB, .41);
+    flex-shrink: 0;
+
+    
+    a {
+        display: block;
+    }
+
+    .router-link-exact-active {
+        background: whitesmoke;
+    }
+}

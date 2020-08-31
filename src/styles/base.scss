@@ -1,0 +1,147 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-size: 62.5%;
+}
+
+body {
+    line-height: 1.5;
+    color: $main;
+}
+
+address {
+    font-style: normal;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+video {
+    max-width: 100%;
+}
+
+label {
+    cursor: pointer;
+    user-select: none;
+}
+
+textarea {
+    resize: vertical;
+    /*height: auto !important; */
+}
+
+ul {
+    @include list-reset;
+}
+
+@include placeholder {
+    text-overflow: ellipsis;
+}
+
+input[placeholder] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}*/
+
+:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+:focus::-moz-placeholder {
+    color: transparent;
+}
+
+:focus:-moz-placeholder {
+    color: transparent;
+}
+
+:focus:-ms-input-placeholder {
+    color: transparent;
+}
+
+.responsive-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+
+    iframe,
+    object,
+    embed {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: $container-width;
+    padding: 0 2rem;
+}
+
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.6rem;
+    min-height: 100vh;
+    // min-width: 1100px;
+    // padding: 0 2rem;
+}
+
+.site-content {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.site-row {
+    display: flex;
+    width: 100%;
+    // padding: 2rem 0;
+    flex-grow: 1;
+
+    /* @media($tablet) {
+        flex-direction: column;
+        padding-top: 150px;
+        position: relative;
+    } */
+
+}
+
+
+.main {
+    padding-left: 2rem;
+    flex-grow: 1;
+
+    // @media($tablet) {
+    //     padding-left: 0;
+    // }
+
+
+}
+
