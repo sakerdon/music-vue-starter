@@ -1,3 +1,10 @@
 .footer {
-    min-height: 20rem;
+  background: #e0e7ed;
+  min-height: 20rem;
+
+  &__text {
+    padding: 3rem 0 7rem;
+    font-size: 1.4rem;
+    color: gray;
+  }
 }

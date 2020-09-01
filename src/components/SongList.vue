@@ -1,153 +1,138 @@
 <template>
-    
-    <div class="list-wrapper">
+  <div class="list-wrapper">
+    <!-- <pre>currentSong {{currentSong}}</pre> -->
+    <!-- <pre>currentSong {{localStoragePlayList}}</pre> -->
 
-        <!-- <pre>currentSong {{currentSong}}</pre> -->
-        <!-- <pre>currentSong {{localStoragePlayList}}</pre> -->
+    <!-- <pre>list {{list}}</pre> -->
+    <!-- <pre>playing {{playing}}</pre> -->
 
-        <!-- <pre>list {{list}}</pre> -->
-        <!-- <pre>playing {{playing}}</pre> -->
+    <preloader class="preloader" v-if="isLoading" />
 
-        <preloader class="preloader" v-if="isLoading" />
+    <template v-else>
+      <div class="list" v-if="dataList.length">
+        <div v-for="(item, index) in dataList" :key="index" class="list__item">
+          <button
+            class="list__play list__btn is-active"
+            :title="playing ? 'Пауза' : 'Играть'"
+            @click="onItemClick(item, index, dataList)"
+          >
+            <Pause v-if="currentSong.id === item.id && playing" />
+            <Play v-else />
+          </button>
 
-        <template v-else>
-        <div  class="list" v-if="dataList.length">
-            <div
-            v-for="(item, index) in dataList"
-            :key="index" 
-            class="list__item"
+          <div class="list__text">
+            <div class="list__title">{{ item.title }}</div>
+            <div class="list__artist">{{ item.artist }}</div>
+          </div>
+
+          <div class="list__buttons">
+            <button
+              class="list__like list__btn"
+              @click="toggleLike(item.id)"
+              :class="{ 'is-active': checkLikeList(item.id) }"
             >
-            
-            <button 
-                class="list__play"
-                :class="currentSong.id === item.id && playing ? 'is-pause' : 'is-play'"
-                type="button" 
-                @click="onItemClick(item, index, dataList)"
-            > 
-                {{ currentSong.id === item.id && playing ? 'pause' : 'play'  }}
+              <Like v-if="!checkLikeList(item.id)" />
+              <LikeActive v-else />
             </button>
 
-            <div class="list__text">
-                <div class="list__title">
-                    {{item.title}}
-                </div>
-                <div class="list__artist">
-                    {{item.artist}}
-                </div>
-            </div>
+            <button
+              class="list__add list__btn"
+              @click="togglePlaylist(item)"
+              :title="
+                checkPlayList(item.id)
+                  ? 'Убрать из моего плейлиста'
+                  : 'Добавить в мой плейлист'
+              "
+              :class="{
+                'is-active': checkPlayList(item.id),
+              }"
+            >
+              <Add />
+            </button>
 
-            <div class="list__buttons">
-                <button class="list__download" @click.prevent="download(item)">download</button>
-                
-                <button class="list__like" 
-                    @click="toggleLike(item.id)"
-                    :class="{'is-active': localStorageLikeList.includes(item.id)}"
-                >like</button>
+            <button
+              class="list__download list__btn"
+              @click.prevent="download(item)"
+            >
+              <Download />
+            </button>
 
-                <button class="list__like" 
-                    @click="togglePlaylist(item)"
-                    :class="{'is-active': localStoragePlayList.find( el => el.id === item.id)}"
-                > {{localStoragePlayList.find( el => el.id === item.id) ? 'remove' : 'add'}}</button>
-            </div>
-
-            
-            </div>
+            <button class="list__ringtone list__btn" title="На гудок">
+              <Ringtone />
+            </button>
+          </div>
         </div>
-        <div v-else class="empty-plh">
-            <slot name="empty">
-                Тут пока еще ничего нет
-            </slot>
-            </div>
-        </template>
-
-
-    </div>
+        <button v-if="!hideShowMore" class="showmore">Загрузить еще</button>
+      </div>
+      <div v-else class="empty-plh">
+        <slot name="empty">Тут пока еще ничего нет</slot>
+      </div>
+    </template>
+  </div>
 </template>
 <script>
-import Preloader from '@/components/Preloader'
-import {mapGetters} from 'vuex'
+import Preloader from '@/components/Preloader';
+import { mapGetters } from 'vuex';
+import likeAndPlaylistMixin from '@/mixins/likeAndPlaylistMixin';
+
+import Play from '@/assets/icons/play.svg';
+import Pause from '@/assets/icons/pause.svg';
+import Download from '@/assets/icons/download.svg';
+import Ringtone from '@/assets/icons/rington.svg';
+import Add from '@/assets/icons/add.svg';
+import Like from '@/assets/icons/like.svg';
+import LikeActive from '@/assets/icons/like-active.svg';
 
 export default {
+  name: 'SongList',
 
-    name: 'SongList',
+  components: {
+    Preloader,
 
-    components: {
-        Preloader
+    Play,
+    Pause,
+    Download,
+    Ringtone,
+    Add,
+    Like,
+    LikeActive,
+  },
+
+  mixins: [likeAndPlaylistMixin],
+
+  props: {
+    hideShowMore: {
+      type: Boolean,
+      default: false,
+    },
+    dataList: {
+      type: Array,
+      default: () => [],
+    },
+    isLoading: {
+      isLoading: Boolean,
+      default: true,
+    },
+  },
+
+  computed: {
+    ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
+  },
+
+  methods: {
+    download(item) {
+      console.log(item.src);
     },
 
-    props: {
-        dataList: {
-            type: Array,
-            default: () => []
-        },
-        isLoading: {
-            isLoading: Boolean,
-            default: true
-        }
+    onItemClick(item, index, list) {
+      this.$store.dispatch('app/setList', list);
+      this.$store.dispatch('app/setSong', item);
+
+      this.$nextTick(() => {
+        this.$store.dispatch('app/setIndex', index);
+        this.$store.dispatch('app/setPlay', !this.playing);
+      });
     },
-
-    
-    data:  () => ({
-        localStorageLikeList: JSON.parse(localStorage.getItem('likeList')) || [],
-        localStoragePlayList: JSON.parse(localStorage.getItem('playList')) || []
-    }),
-
-
-    computed: {
-        ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
-        
-    },
-
-
-    methods: {
-
-        toggleLike(id) {
-            let list = JSON.parse(localStorage.getItem('likeList')) || [];
-
-            if (list.includes(id)) {
-                list = list.filter( el => el !== id );
-            } else {
-                list.push(id);
-            }
-
-            localStorage.setItem('likeList', JSON.stringify(list))
-            this.localStorageLikeList = list;
-
-        },
-
-        togglePlaylist(item) {
-            let list = JSON.parse(localStorage.getItem('playList')) || [];
-
-            if (list.find( el => el.id ===  item.id)) {
-                list = list.filter( el => el.id !== item.id );
-            } else {
-                list.push(item);
-            }
-
-            localStorage.setItem('playList', JSON.stringify(list))
-            this.localStoragePlayList = list;
-
-        },
-
-
-        download(item) {
-            console.log(item.src);
-        },
-        
-        onItemClick(item, index, list) {
-            this.$store.dispatch( 'app/setList', list)
-            this.$store.dispatch( 'app/setSong', item)
-            
-
-            this.$nextTick( () => {
-                this.$store.dispatch('app/setIndex', index)
-                this.$store.dispatch( 'app/setPlay', !this.playing )
-
-            }  )
-
-
-        },
-    },
-
-}
+  },
+};
 </script>

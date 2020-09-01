@@ -1,39 +1,104 @@
 .list {
-    &__item{
-        display: flex;
-        height: 6rem;
-        align-items: center;
-    } 
-    &__play{
-        width: 6rem;
-        height: 6rem;
-        
-    } 
-    &__text{
-        flex-grow: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding: 0 2rem;
-        
-    } 
-    &__title{
-        font-weight: bold;
-    } 
-    &__artist{
-        font-weight: normal;
-    } 
-    &__buttons{
-        flex-shrink: 0;
+  &__item {
+    display: flex;
+    align-items: center;
+    height: 5.6rem;
+    font-size: 1.4rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+  }
+  &__play {
+    width: 6rem;
+    height: 6rem;
+  }
+  &__text {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 1rem;
+  }
+  &__title {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__artist {
+    font-size: 1.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-        button {
-            width: 6rem;
-            height: 6rem;
-        }
-    } 
+  &__buttons {
+    flex-shrink: 0;
+  }
 
-    &__like {
-        &.is-active {
-            background: red;
-        }
+  &__btn {
+    width: 4.4rem;
+    height: 4.4rem;
+    padding: 1.2rem;
+    background: transparent;
+    border: none;
+    flex-shrink: 0;
+    transition: all 0.3s;
+
+    &.is-disabled {
+      opacity: 0.5;
     }
+
+    &.player__prev {
+      transform: scaleX(-1);
+    }
+
+    &.list__loop,
+    &.list__add,
+    &.list__download,
+    &.list__like,
+    &.list__volume,
+    &.list__ringtone {
+      padding: 1.2rem;
+    }
+
+    &.list__add {
+      path {
+        transform: translate(2px, 2px);
+      }
+      &.is-active {
+        svg {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s;
+
+      path {
+        fill: silver;
+        transition: all 0.3s;
+      }
+    }
+
+    &:hover {
+      svg {
+        path {
+          fill: gray;
+        }
+      }
+    }
+
+    &.is-active {
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
+  }
 }

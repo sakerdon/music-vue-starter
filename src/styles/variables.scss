@@ -1,6 +1,5 @@
 $container-width: 1170px;
 
-
 /* COLORS */
 $black: #000;
 $white: #fff;
@@ -8,16 +7,16 @@ $white: #fff;
 $main: #212121;
 $main-light: #757575;
 
-$primary: #03B2A8;
-$primary-light: #B2DFDB;
+$primary: #0062f6;
+$primary-light: #b2dfdb;
 
-$secondary-dark: #EBA500;
-$secondary: #FEB811;
+$secondary-dark: #eba500;
+$secondary: #feb811;
 
-$error: #FE202F;
+$error: #fe202f;
 
 /* MEDIA QUERIES */
-$tablet: unquote("max-width: 1200px");
-$mobile: unquote("max-width: 767px");
+$tablet: unquote('max-width: 1200px');
+$mobile: unquote('max-width: 767px');
 
-$onlydesk: unquote("min-width: 1280px");
+$onlydesk: unquote('min-width: 1280px');

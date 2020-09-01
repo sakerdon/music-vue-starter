@@ -1,0 +1,38 @@
+.top-artist {
+  @include row(2rem);
+  padding-bottom: 3rem;
+
+  &__item {
+    @include col(4, 2rem);
+    text-align: center;
+  }
+
+  &__img {
+    margin-bottom: 1rem;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-bottom: 100%;
+    }
+
+    img {
+      //   border-radius: 0.6rem;
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &__name {
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+}

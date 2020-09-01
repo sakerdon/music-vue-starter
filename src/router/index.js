@@ -1,40 +1,38 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
 /* Layout */
-import Home from "@/views/Home";
-import Category from "@/views/Category";
-import PlayList from "@/views/PlayList";
-
+import Home from '@/views/Home';
+import Category from '@/views/Category';
+import PlayList from '@/views/PlayList';
 
 export const constantRoutes = [
   {
-    path: "/",
+    path: '/',
     component: Home,
   },
 
   {
-    path: "/category",
+    path: '/category/:categoryId',
     name: 'category',
     component: Category,
+    props: true,
   },
 
   {
-    path: "/playlist",
+    path: '/playlist',
     name: 'playlist',
     component: PlayList,
   },
-
-  
 ];
 
 const createRouter = () =>
   new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes
+    routes: constantRoutes,
   });
 
 const router = createRouter();
