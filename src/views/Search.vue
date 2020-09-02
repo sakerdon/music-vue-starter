@@ -1,40 +1,43 @@
 <template>
-  <div class="home-page">
-    <h1>Топ подборок</h1>
-    <top-categories />
-    <h1>Топ музыки</h1>
-    <song-list :dataList="dataList" :isLoading="isLoading" />
-    <h1>Топ исполнителей</h1>
-    <top-artists />
+  <div class="category">
+    <h1>Поиск {{ term ? 'по ' + '"' + term + '"' : '' }}</h1>
+    <song-list :dataList="dataList" :isLoading="isLoading">
+      <template #empty>
+        Ничего не найдено :(
+      </template>
+    </song-list>
   </div>
 </template>
 <script>
+import SongList from '@/components/SongList';
 import { mapGetters } from 'vuex';
 import { fetchList } from '@/api';
 
-import SongList from '@/components/SongList';
-import TopArtists from '@/components/TopArtists';
-import TopCategories from '@/components/TopCategories';
-
 export default {
-  name: 'Home',
+  name: 'Search',
+
+  props: {
+    // term: {
+    //   type: String,
+    //   default: '',
+    // },
+  },
 
   components: {
     SongList,
-    TopArtists,
-    TopCategories,
   },
 
   data() {
     return {
       page: 1,
+      term: '',
       dataList: [],
       isLoading: true,
     };
   },
 
   created() {
-    this.getList();
+    // this.getList();
   },
 
   computed: {
@@ -58,15 +61,28 @@ export default {
         // test
 
         fetchList({
-          path: '/mock.json',
+          path: '/mock2.json',
           query: {
             page: this.page,
+            term: this.term,
+            category_id: this.$route.params.categoryId,
           },
         }).then((res) => {
           this.dataList = res.data;
           this.isLoading = false;
         });
       }, 300);
+    },
+  },
+
+  watch: {
+    '$route.query.term': {
+      immediate: true,
+      handler(value) {
+        this.page = 1;
+        this.term = value;
+        this.getList();
+      },
     },
   },
 };

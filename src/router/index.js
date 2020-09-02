@@ -7,6 +7,7 @@ Vue.use(Router);
 import Home from '@/views/Home';
 import Category from '@/views/Category';
 import PlayList from '@/views/PlayList';
+import Search from '@/views/Search';
 
 export const constantRoutes = [
   {
@@ -25,6 +26,13 @@ export const constantRoutes = [
     path: '/playlist',
     name: 'playlist',
     component: PlayList,
+  },
+
+  {
+    path: '/search',
+    name: 'search',
+    component: Search,
+    props: true,
   },
 ];
 

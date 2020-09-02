@@ -9,6 +9,7 @@
   .container {
     display: flex;
     height: 100%;
+    align-items: center;
   }
 
   &__logo {
@@ -28,5 +29,36 @@
   &__menu-toggler {
     margin-right: 2rem;
     display: none !important;
+  }
+
+  &__search {
+    margin: auto;
+    width: 100%;
+    max-width: 40rem;
+    display: flex;
+    height: 4rem;
+    font-size: 1.4rem;
+  }
+
+  &__input {
+    flex-grow: 1;
+    padding: 0 2rem;
+    border: 1px solid #e0e7ed;
+    border-radius: 0.6rem 0 0 0.6rem;
+    border-right: 0;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+    }
+  }
+
+  &__submit {
+    background: $primary;
+    padding: 0 2rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 0 0.6rem 0.6rem 0;
   }
 }
