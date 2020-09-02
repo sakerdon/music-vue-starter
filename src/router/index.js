@@ -5,9 +5,13 @@ Vue.use(Router);
 
 /* Layout */
 import Home from '@/views/Home';
+import CategoryList from '@/views/CategoryList';
 import Category from '@/views/Category';
+import Artist from '@/views/Artist';
+import ArtistList from '@/views/ArtistList';
 import PlayList from '@/views/PlayList';
 import Search from '@/views/Search';
+import Track from '@/views/Track';
 
 export const constantRoutes = [
   {
@@ -16,9 +20,35 @@ export const constantRoutes = [
   },
 
   {
+    path: '/track/:trackId',
+    name: 'track',
+    component: Track,
+    props: true,
+  },
+
+  {
+    path: '/category/',
+    name: 'categoryList',
+    component: CategoryList,
+  },
+
+  {
     path: '/category/:categoryId',
     name: 'category',
     component: Category,
+    props: true,
+  },
+
+  {
+    path: '/artist/',
+    name: 'artistList',
+    component: ArtistList,
+  },
+
+  {
+    path: '/artist/:artistId',
+    name: 'artist',
+    component: Artist,
     props: true,
   },
 

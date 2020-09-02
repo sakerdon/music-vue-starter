@@ -1,29 +1,32 @@
 <template>
-  <div class="category">
-    <div class="category__header">
-      <div class="category__img">
-        <img src="/svg/forest.svg" alt="img" />
+  <div class="artist">
+    <div class="artist__header">
+      <div class="artist__img">
+        <img
+          src="https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/225/986/5.jpg"
+          alt="img"
+        />
       </div>
-      <h1>Category {{ categoryId }}</h1>
+      <h1>Artist {{ artistId }}</h1>
     </div>
-
+    <h2>Популярные треки</h2>
     <song-list :dataList="dataList" :isLoading="isLoading" />
   </div>
 </template>
 <script>
 import SongList from '@/components/SongList';
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
 import { fetchList } from '@/api';
 
 export default {
-  name: 'Category',
+  name: 'Artist',
 
   components: {
     SongList,
   },
 
   props: {
-    categoryId: {
+    artistId: {
       type: [String, Number],
       required: true,
     },
@@ -41,19 +44,19 @@ export default {
     this.getList();
   },
 
-  computed: {
-    ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
-  },
+  //   computed: {
+  //     ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
+  //   },
 
   methods: {
     async getList() {
       this.isLoading = true;
 
-      /* let res = await fetchList({
-                path: '/mock.json',
+      /* let res = await fetchList({ 
+                path: '/mock.json', 
                 query: {
                     page: this.page
-                }
+                } 
             }) */
       // this.dataList = res.data;
       // this.isLoading = false;
@@ -65,7 +68,7 @@ export default {
           path: '/mock2.json',
           query: {
             page: this.page,
-            category_id: this.categoryId,
+            artist_id: this.artistId,
           },
         }).then((res) => {
           this.dataList = res.data;
@@ -76,7 +79,7 @@ export default {
   },
 
   watch: {
-    categoryId: {
+    artistId: {
       //   immediate: true,
       handler() {
         this.page = 1;

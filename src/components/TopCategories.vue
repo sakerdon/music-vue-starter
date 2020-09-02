@@ -16,36 +16,13 @@
 
 <script>
 export default {
-  name: 'TopCategory',
+  name: 'TopCategories',
 
-  data: () => ({
-    list: [
-      {
-        id: 1,
-        name: 'Рок',
-        src: '/svg/electric-guitar.svg',
-      },
-      {
-        id: 2,
-        name: 'На природе',
-        src: '/svg/forest.svg',
-      },
-      {
-        id: 3,
-        name: 'Романтика',
-        src: '/svg/balloons.svg',
-      },
-      {
-        id: 4,
-        name: 'Для тренировок',
-        src: '/svg/dumbbell.svg',
-      },
-      {
-        id: 5,
-        name: 'Клубная',
-        src: '/svg/music-1.svg',
-      },
-    ],
-  }),
+  props: {
+    list: {
+      type: Array,
+      default: () => [],
+    },
+  },
 };
 </script>

@@ -38,6 +38,13 @@
           possimus distinctio non maiores voluptate, officiis omnis ipsum vero,
           sit nesciunt sint. Perspiciatis ut, quod vero earum dolore tenetur hic
           doloremque?
+
+          <div class="footer__license">
+            Иконки с сайта
+            <a href="https://www.flaticon.com/" title="Flaticon"
+              >www.flaticon.com</a
+            >
+          </div>
         </div>
         <audio-player />
       </div>

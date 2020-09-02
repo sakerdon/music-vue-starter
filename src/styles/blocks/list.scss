@@ -19,12 +19,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 1rem;
+    display: block;
   }
   &__title {
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: block;
   }
   &__artist {
     font-size: 1.3rem;

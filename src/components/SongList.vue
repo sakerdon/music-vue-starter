@@ -21,8 +21,17 @@
           </button>
 
           <div class="list__text">
-            <div class="list__title">{{ item.title }}</div>
-            <div class="list__artist">{{ item.artist }}</div>
+            <router-link
+              :to="{ name: 'track', params: { trackId: item.id } }"
+              class="list__title"
+              >{{ item.title }}
+            </router-link>
+
+            <router-link
+              :to="{ name: 'artist', params: { artistId: item.artistId } }"
+              class="list__artist"
+              >{{ item.artist }}
+            </router-link>
           </div>
 
           <div class="list__buttons">
