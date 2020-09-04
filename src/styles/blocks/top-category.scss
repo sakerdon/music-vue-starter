@@ -9,6 +9,18 @@
     color: inherit;
     text-decoration: none;
 
+    @media ($tablet) {
+      @include col(4, 2rem);
+    }
+
+    @media ($mobile) {
+      @include col(3, 2rem);
+    }
+
+    @media (max-width: 480px) {
+      @include col(2, 2rem);
+    }
+
     &:hover {
       .top-category__img {
         box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.1);

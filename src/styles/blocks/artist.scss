@@ -3,12 +3,21 @@
     display: flex;
     align-items: center;
     padding: 2rem 0;
+
+    @media ($mobile) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__img {
     width: 240px;
     height: 240px;
     margin-right: 2rem;
+
+    @media ($mobile) {
+      flex-shrink: 0;
+    }
 
     img {
       height: 100%;

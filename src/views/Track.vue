@@ -3,7 +3,7 @@
     <div class="artist__header">
       <div class="artist__img">
         <img
-          src="https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/225/986/5.jpg"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT3M-igcgAWxxG6nOgJDzLtGqQz7FlJW2IZ6w&usqp=CAU"
           alt="img"
         />
       </div>

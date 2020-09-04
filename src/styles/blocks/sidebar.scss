@@ -7,6 +7,22 @@
   margin: 2rem 0;
   border-radius: 0.6rem;
 
+  @media ($mobile) {
+    position: fixed;
+    width: 100%;
+    margin: 0;
+    left: 0;
+    transform: translateY(-150%);
+    transition: transform 0.3s;
+    z-index: 2;
+    overflow: auto;
+    max-height: calc(100vh - 6rem);
+
+    &.is-active {
+      transform: translateY(0);
+    }
+  }
+
   &__item {
     height: 5.6rem;
     position: relative;

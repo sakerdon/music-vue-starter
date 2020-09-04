@@ -23,18 +23,21 @@ export const constantRoutes = [
     path: '/track/:trackId',
     name: 'track',
     component: Track,
+    meta: { title: 'Слушать песню' },
     props: true,
   },
 
   {
     path: '/category/',
     name: 'categoryList',
+    meta: { title: 'Категории' },
     component: CategoryList,
   },
 
   {
     path: '/category/:categoryId',
     name: 'category',
+    // meta: { title: 'Категория' },
     component: Category,
     props: true,
   },
@@ -42,12 +45,14 @@ export const constantRoutes = [
   {
     path: '/artist/',
     name: 'artistList',
+    meta: { title: 'Исполнители' },
     component: ArtistList,
   },
 
   {
     path: '/artist/:artistId',
     name: 'artist',
+    // meta: { title: 'Исполнитель' },
     component: Artist,
     props: true,
   },
@@ -55,12 +60,14 @@ export const constantRoutes = [
   {
     path: '/playlist',
     name: 'playlist',
+    meta: { title: 'Мой плейлист' },
     component: PlayList,
   },
 
   {
     path: '/search',
     name: 'search',
+    meta: { title: 'Поиск' },
     component: Search,
     props: true,
   },
@@ -80,5 +87,10 @@ export function resetRouter() {
   const newRouter = createRouter();
   router.matcher = newRouter.matcher; // reset router
 }
+
+router.beforeEach(async (to, from, next) => {
+  document.title = to.meta.title || 'MyMuzz';
+  next();
+});
 
 export default router;

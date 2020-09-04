@@ -5,6 +5,18 @@
   &__item {
     @include col(4, 2rem);
     text-align: center;
+
+    @media ($tablet) {
+      @include col(4, 2rem);
+    }
+
+    @media ($mobile) {
+      @include col(3, 2rem);
+    }
+
+    @media (max-width: 480px) {
+      @include col(2, 2rem);
+    }
   }
 
   &__img {

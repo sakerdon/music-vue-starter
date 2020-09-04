@@ -1,0 +1,21 @@
+.home-page {
+  @media ($tablet) {
+    .top-category,
+    .top-artist {
+      flex-wrap: nowrap;
+      overflow: auto;
+      padding: 0;
+      margin-right: -2rem;
+      margin-left: -1rem;
+
+      &__item {
+        width: 12rem;
+        flex-shrink: 0;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}

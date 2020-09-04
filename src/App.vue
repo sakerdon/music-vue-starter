@@ -4,7 +4,9 @@
       <div class="container">
         <button
           class="header__menu-toggler hamburger hamburger--spring"
+          :class="{'is-active': isMenuActive}"
           type="button"
+          @click="isMenuActive = !isMenuActive"
         >
           <span class="hamburger-box">
             <span class="hamburger-inner"></span>
@@ -21,9 +23,9 @@
       </div>
     </header>
 
-    <div class="site-content">
+    <div class="site-content" @click="isMenuActive = false">
       <div class="container site-row">
-        <sidebar />
+        <sidebar :class="{'is-active': isMenuActive}" @choise="isMenuActive = false" />
 
         <main class="main">
           <router-view />
@@ -38,12 +40,9 @@
           possimus distinctio non maiores voluptate, officiis omnis ipsum vero,
           sit nesciunt sint. Perspiciatis ut, quod vero earum dolore tenetur hic
           doloremque?
-
           <div class="footer__license">
             Иконки с сайта
-            <a href="https://www.flaticon.com/" title="Flaticon"
-              >www.flaticon.com</a
-            >
+            <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
           </div>
         </div>
         <audio-player />
@@ -53,16 +52,19 @@
 </template>
 
 <script>
-import AudioPlayer from './components/AudioPlayer.vue';
-import Sidebar from './components/Sidebar.vue';
-import SearchForm from './components/SearchForm.vue';
+import AudioPlayer from "./components/AudioPlayer.vue";
+import Sidebar from "./components/Sidebar.vue";
+import SearchForm from "./components/SearchForm.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AudioPlayer,
     Sidebar,
     SearchForm,
   },
+  data: () => ({
+    isMenuActive: false,
+  }),
 };
 </script>
