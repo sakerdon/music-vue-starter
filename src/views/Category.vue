@@ -7,20 +7,20 @@
       <h1>Category {{ categoryId }}</h1>
     </div>
 
-    <song-list :dataList="dataList" :isLoading="isLoading" />
+    <song-list :dataList="dataList" :isLoading="isLoading" @showmore="showMore" />
   </div>
 </template>
 <script>
-import SongList from '@/components/SongList';
-import { mapGetters } from 'vuex';
-import { fetchList } from '@/api';
-
+import SongList from "@/components/SongList";
+import getListMixin from "@/mixins/getListMixin";
 export default {
-  name: 'Category',
+  name: "Category",
 
   components: {
     SongList,
   },
+
+  mixins: [getListMixin],
 
   props: {
     categoryId: {
@@ -29,59 +29,20 @@ export default {
     },
   },
 
-  data() {
-    return {
-      page: 1,
-      dataList: [],
-      isLoading: true,
-    };
-  },
+  data: () => ({
+    path: "/mock2.json", // REST api endpoint to category
+  }),
 
   created() {
-    this.getList();
-  },
-
-  computed: {
-    ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
-  },
-
-  methods: {
-    async getList() {
-      this.isLoading = true;
-
-      /* let res = await fetchList({
-                path: '/mock.json',
-                query: {
-                    page: this.page
-                }
-            }) */
-      // this.dataList = res.data;
-      // this.isLoading = false;
-
-      await setTimeout(() => {
-        // test
-
-        fetchList({
-          path: '/mock2.json',
-          query: {
-            page: this.page,
-            category_id: this.categoryId,
-          },
-        }).then((res) => {
-          this.dataList = res.data;
-          this.isLoading = false;
-        });
-      }, 300);
-    },
+    this.query.categoryId = this.categoryId;
+    this.getList(); // See mixin
   },
 
   watch: {
-    categoryId: {
-      //   immediate: true,
-      handler() {
-        this.page = 1;
-        this.getList();
-      },
+    categoryId() {
+      this.dataList = [];
+      this.query.page = 1;
+      this.getList(); // See mixin
     },
   },
 };

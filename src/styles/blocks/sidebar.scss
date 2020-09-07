@@ -41,10 +41,10 @@
     &:after {
       content: '';
       position: absolute;
-      width: 20rem;
       height: 1px;
       background: #e0e7ed;
       right: 0;
+      width: calc(100% - 7rem);
     }
   }
 

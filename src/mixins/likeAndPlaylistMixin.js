@@ -1,11 +1,6 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  // data: () => ({
-  //   localStorageLikeList: JSON.parse(localStorage.getItem('likeList')) || [],
-  //   localStoragePlayList: JSON.parse(localStorage.getItem('playList')) || [],
-  // }),
-
   created() {
     this.$store.dispatch(
       'app/setLikeList',

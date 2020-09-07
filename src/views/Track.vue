@@ -12,15 +12,15 @@
     <song-list :dataList="[track]" :isLoading="isLoading" hideShowMore />
 
     <h2>Похожие треки</h2>
-    <song-list :dataList="dataList" :isLoading="isLoading" />
+    <song-list :dataList="dataList" :isLoading="isLoading" @showmore="showMore" />
   </div>
 </template>
 <script>
-import SongList from '@/components/SongList';
-import { fetchList } from '@/api';
+import SongList from "@/components/SongList";
+import getListMixin from "@/mixins/getListMixin";
 
 export default {
-  name: 'Artist',
+  name: "Artist",
 
   components: {
     SongList,
@@ -33,16 +33,18 @@ export default {
     },
   },
 
+  mixins: [getListMixin],
+
   data() {
     return {
-      page: 1,
-      dataList: [],
+      path: "/mock.json",
       track: {
+        // TODO Времменно заглушка
         id: 11,
-        title: 'track name',
-        artist: 'artist name',
-        artistId: '5',
-        src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+        title: "track name",
+        artist: "artist name",
+        artistId: "5",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
       },
 
       isLoading: true,
@@ -50,47 +52,8 @@ export default {
   },
 
   created() {
+    this.query.trackId = this.trackId;
     this.getList();
-  },
-
-  methods: {
-    async getList() {
-      this.isLoading = true;
-
-      /* let res = await fetchList({
-                path: '/mock.json',
-                query: {
-                    page: this.page
-                }
-            }) */
-      // this.dataList = res.data;
-      // this.isLoading = false;
-
-      await setTimeout(() => {
-        // test
-
-        fetchList({
-          path: '/mock2.json',
-          query: {
-            page: this.page,
-            artist_id: this.artistId,
-          },
-        }).then((res) => {
-          this.dataList = res.data;
-          this.isLoading = false;
-        });
-      }, 300);
-    },
-  },
-
-  watch: {
-    artistId: {
-      //   immediate: true,
-      handler() {
-        this.page = 1;
-        this.getList();
-      },
-    },
   },
 };
 </script>

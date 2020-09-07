@@ -1,20 +1,39 @@
 .footer {
   background: #e0e7ed;
-  min-height: 20rem;
+  min-height: 22rem;
+
+  @media ($mobile) {
+    min-height: 20rem;
+  }
 
   &__text {
     padding: 3rem 0 7rem;
     font-size: 1.4rem;
     color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @media ($mobile) {
-      padding-bottom: 12rem;
+      // padding-bottom: 12rem;
+    }
+  }
+
+  &__copuright {
+    margin-bottom: 1rem;
+  }
+
+  &__links {
+    display: flex;
+    margin-bottom: 1rem;
+    a {
+      margin-right: 2rem;
     }
   }
 
   &__license {
     font-size: 12px;
-
+    opacity: 0.5;
     a {
       color: inherit;
       text-decoration: none;

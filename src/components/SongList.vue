@@ -1,12 +1,6 @@
 <template>
   <div class="list-wrapper">
-    <!-- <pre>currentSong {{currentSong}}</pre> -->
-    <!-- <pre>currentSong {{localStoragePlayList}}</pre> -->
-
-    <!-- <pre>list {{list}}</pre> -->
-    <!-- <pre>playing {{playing}}</pre> -->
-
-    <preloader class="preloader" v-if="isLoading" />
+    <preloader class="preloader" v-if="!dataList.length && isLoading" />
 
     <template v-else>
       <div class="list" v-if="dataList.length">
@@ -24,14 +18,12 @@
             <router-link
               :to="{ name: 'track', params: { trackId: item.id } }"
               class="list__title"
-              >{{ item.title }}
-            </router-link>
+            >{{ item.title }}</router-link>
 
             <router-link
               :to="{ name: 'artist', params: { artistId: item.artistId } }"
               class="list__artist"
-              >{{ item.artist }}
-            </router-link>
+            >{{ item.artist }}</router-link>
           </div>
 
           <div class="list__buttons">
@@ -59,10 +51,7 @@
               <Add />
             </button>
 
-            <button
-              class="list__download list__btn"
-              @click.prevent="download(item)"
-            >
+            <button class="list__download list__btn" @click.prevent="download(item)">
               <Download />
             </button>
 
@@ -71,7 +60,18 @@
             </button>
           </div>
         </div>
-        <button v-if="!hideShowMore" class="showmore">Загрузить еще</button>
+        <slot name="showmore">
+          <button
+            v-if="!hideShowMore && !isLoading"
+            class="showmore"
+            @click="$emit('showmore')"
+          >Загрузить еще</button>
+          <preloader
+            style="height: 4.4rem; margin-top: 3rem"
+            class="preloader"
+            v-if="!hideShowMore && isLoading"
+          />
+        </slot>
       </div>
       <div v-else class="empty-plh">
         <slot name="empty">Тут пока еще ничего нет</slot>
@@ -80,20 +80,20 @@
   </div>
 </template>
 <script>
-import Preloader from '@/components/Preloader';
-import { mapGetters } from 'vuex';
-import likeAndPlaylistMixin from '@/mixins/likeAndPlaylistMixin';
+import Preloader from "@/components/Preloader";
+import { mapGetters } from "vuex";
+import likeAndPlaylistMixin from "@/mixins/likeAndPlaylistMixin";
 
-import Play from '@/assets/icons/play.svg';
-import Pause from '@/assets/icons/pause.svg';
-import Download from '@/assets/icons/download.svg';
-import Ringtone from '@/assets/icons/rington.svg';
-import Add from '@/assets/icons/add.svg';
-import Like from '@/assets/icons/like.svg';
-import LikeActive from '@/assets/icons/like-active.svg';
+import Play from "@/assets/icons/play.svg";
+import Pause from "@/assets/icons/pause.svg";
+import Download from "@/assets/icons/download.svg";
+import Ringtone from "@/assets/icons/rington.svg";
+import Add from "@/assets/icons/add.svg";
+import Like from "@/assets/icons/like.svg";
+import LikeActive from "@/assets/icons/like-active.svg";
 
 export default {
-  name: 'SongList',
+  name: "SongList",
 
   components: {
     Preloader,
@@ -125,7 +125,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
+    ...mapGetters(["playing", "list", "currentIndex", "currentSong"]),
   },
 
   methods: {
@@ -134,12 +134,12 @@ export default {
     },
 
     onItemClick(item, index, list) {
-      this.$store.dispatch('app/setList', list);
-      this.$store.dispatch('app/setSong', item);
+      this.$store.dispatch("app/setList", list);
+      this.$store.dispatch("app/setSong", item);
 
       this.$nextTick(() => {
-        this.$store.dispatch('app/setIndex', index);
-        this.$store.dispatch('app/setPlay', !this.playing);
+        this.$store.dispatch("app/setIndex", index);
+        this.$store.dispatch("app/setPlay", !this.playing);
       });
     },
   },

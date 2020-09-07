@@ -2,28 +2,26 @@
   <div class="artist">
     <div class="artist__header">
       <div class="artist__img">
-        <img
-          src="https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/225/986/5.jpg"
-          alt="img"
-        />
+        <img src="https://cdn-st1.rtr-vesti.ru/vh/pictures/xw/225/986/5.jpg" alt="img" />
       </div>
       <h1>Artist {{ artistId }}</h1>
     </div>
     <h2>Популярные треки</h2>
-    <song-list :dataList="dataList" :isLoading="isLoading" />
+    <song-list :dataList="dataList" :isLoading="isLoading" @showmore="showMore" />
   </div>
 </template>
 <script>
-import SongList from '@/components/SongList';
-// import { mapGetters } from 'vuex';
-import { fetchList } from '@/api';
+import SongList from "@/components/SongList";
+import getListMixin from "@/mixins/getListMixin";
 
 export default {
-  name: 'Artist',
+  name: "Artist",
 
   components: {
     SongList,
   },
+
+  mixins: [getListMixin],
 
   props: {
     artistId: {
@@ -32,59 +30,20 @@ export default {
     },
   },
 
-  data() {
-    return {
-      page: 1,
-      dataList: [],
-      isLoading: true,
-    };
-  },
+  data: () => ({
+    path: "/mock2.json", // REST api endpoint to artists songs
+  }),
 
   created() {
-    this.getList();
-  },
-
-  //   computed: {
-  //     ...mapGetters(['playing', 'list', 'currentIndex', 'currentSong']),
-  //   },
-
-  methods: {
-    async getList() {
-      this.isLoading = true;
-
-      /* let res = await fetchList({ 
-                path: '/mock.json', 
-                query: {
-                    page: this.page
-                } 
-            }) */
-      // this.dataList = res.data;
-      // this.isLoading = false;
-
-      await setTimeout(() => {
-        // test
-
-        fetchList({
-          path: '/mock2.json',
-          query: {
-            page: this.page,
-            artist_id: this.artistId,
-          },
-        }).then((res) => {
-          this.dataList = res.data;
-          this.isLoading = false;
-        });
-      }, 300);
-    },
+    this.query.artistId = this.artistId;
+    this.getList(); // See mixin
   },
 
   watch: {
-    artistId: {
-      //   immediate: true,
-      handler() {
-        this.page = 1;
-        this.getList();
-      },
+    artistId() {
+      this.dataList = [];
+      this.query.page = 1;
+      this.getList();
     },
   },
 };

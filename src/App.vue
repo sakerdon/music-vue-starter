@@ -36,15 +36,22 @@
     <footer class="footer">
       <div class="container">
         <div class="footer__text">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo
-          possimus distinctio non maiores voluptate, officiis omnis ipsum vero,
-          sit nesciunt sint. Perspiciatis ut, quod vero earum dolore tenetur hic
-          doloremque?
+          <div class="footer__links">
+            <a href="#">О проекте</a>
+            <a href="#">Об услуге</a>
+          </div>
+
+          <div class="footer__copuright">&copy; myMuzz, {{new Date().getFullYear()}}</div>
           <div class="footer__license">
             Иконки с сайта
-            <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+            <a
+              href="https://www.flaticon.com/"
+              target="_blank"
+              title="Flaticon"
+            >www.flaticon.com</a>
           </div>
         </div>
+
         <audio-player />
       </div>
     </footer>
